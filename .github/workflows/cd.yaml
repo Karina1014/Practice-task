@@ -31,9 +31,9 @@ jobs:
     - name: SSH into EC2 and deploy
       uses: appleboy/ssh-action@v1.2.0
       with:
-        host: ${{ secrets.EC2_HOST }}
+        host: ${{ secrets.EC2_SERVER }}
         username: ubuntu
-        key: ${{ secrets.EC2_KEY }}
+        key: ${{ secrets.SERVER_KEY }}
         script: |
           # Actualizar dependencias del servidor
           sudo apt update && sudo apt install -y docker.io docker-compose
