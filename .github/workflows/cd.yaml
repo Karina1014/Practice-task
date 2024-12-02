@@ -42,8 +42,7 @@ jobs:
           # Crear directorio del proyecto si no existe
           sudo mkdir -p ~/myapp
 
-          # Subir los ficheros relevantes desde el repositorio
-          sudo echo "Uploading docker-compose.yml"
+          # Subir el archivo docker-compose.yml actualizado
           sudo echo -e "
           services:
             nginx:
@@ -54,12 +53,21 @@ jobs:
               restart: always
           " > ~/myapp/docker-compose.yml
 
-          # Detener cualquier contenedor en ejecución del proyecto actual
+          # Verificar el contenido del archivo docker-compose.yml
+          sudo cat ~/myapp/docker-compose.yml
+
+          # Descargar la última versión de la imagen desde Docker Hub
           cd ~/myapp
+          sudo docker-compose pull
+
+          # Detener cualquier contenedor en ejecución del proyecto actual
           sudo docker-compose down || true
 
           # Levantar el nuevo contenedor con docker-compose
           sudo docker-compose up -d
 
-          # Verificar contenedores en ejecución
+          # Verificar los contenedores en ejecución
           sudo docker ps
+
+          # Verificar los logs del contenedor
+          sudo docker logs nginx_server
