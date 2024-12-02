@@ -24,16 +24,16 @@ jobs:
     # 3. Construir y publicar la imagen Docker desde el código actual
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/myappv2:latest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/myappv2:latest
 
     # 4. Conectarse al servidor EC2 y ejecutar el despliegue
     - name: SSH into EC2 and deploy
       uses: appleboy/ssh-action@v1.2.0
       with:
-        host: ${{ secrets.EC2_SERVER }}
+        host: ${{ secrets.EC2_HOST }}
         username: ubuntu
-        key: ${{ secrets.SERVER_KEY }}
+        key: ${{ secrets.EC2_KEY }}
         script: |
           # Actualizar dependencias del servidor
           sudo apt update && sudo apt install -y docker.io docker-compose
@@ -57,10 +57,10 @@ jobs:
 
           # Detener cualquier contenedor en ejecución del proyecto actual
           cd ~/myapp
-          sudo docker-compose down || true
+          docker-compose down || true
 
           # Levantar el nuevo contenedor con docker-compose
-          sudo docker-compose up -d
+          docker-compose up -d
 
           # Verificar contenedores en ejecución
-          sudo docker ps
+          docker ps
