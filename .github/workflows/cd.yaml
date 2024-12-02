@@ -40,11 +40,11 @@ jobs:
           sudo systemctl enable --now docker
 
           # Crear directorio del proyecto si no existe
-          mkdir -p ~/myapp
+          sudo mkdir -p ~/myapp
 
           # Subir los ficheros relevantes desde el repositorio
-          echo "Uploading docker-compose.yml"
-          echo -e "
+          sudo echo "Uploading docker-compose.yml"
+          sudo echo -e "
           services:
             nginx:
               image: ${{ secrets.DOCKER_USERNAME }}/myapp:latest
@@ -56,10 +56,10 @@ jobs:
 
           # Detener cualquier contenedor en ejecución del proyecto actual
           cd ~/myapp
-          docker-compose down || true
+          sudo docker-compose down || true
 
           # Levantar el nuevo contenedor con docker-compose
-          docker-compose up -d
+          sudo docker-compose up -d
 
           # Verificar contenedores en ejecución
-          docker ps
+          sudo docker ps
