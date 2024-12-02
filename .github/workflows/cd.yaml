@@ -53,10 +53,10 @@ jobs:
               ports:
                 - '80:80'
               restart: always
-          " > ~/myapp/docker-compose.yml
+          " > ~/myappv2/docker-compose.yml
 
           # Detener cualquier contenedor en ejecución del proyecto actual
-          cd ~/myapp
+          cd ~/myappv2
           docker-compose down || true
 
           # Levantar el nuevo contenedor con docker-compose
