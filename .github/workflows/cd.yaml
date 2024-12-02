@@ -71,3 +71,5 @@ jobs:
 
           # Verificar los logs del contenedor
           sudo docker logs nginx_server
+
+          
