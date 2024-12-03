@@ -2,16 +2,11 @@ name: Hello World
 
 on:
   workflow_dispatch:
-    inputs:
-      custom_message:
-        description: "Enter your custom message"
-        required: false
-        default: "Hello World Karisita :)"
 
 jobs:
   print-hello-world:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print the custom message
-        run: echo "${{ github.event.inputs.custom_message }}"
+      - name: Say hello
+        run: echo "Hello World Karisita :) "
